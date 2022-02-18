@@ -28,9 +28,9 @@ messaging app Slack. We'll call our version [Belay](https://en.wikipedia.org/wik
   can delete it and all messages.
 - Like Slack, messages may be threaded as Replies in response to a message in a
   channel. Messages in the channel will display how many replies they have if
-  that number is greater than zero. ~Like in Slack, clicking will open the reply
+  that number is greater than zero. ~~Like in Slack, clicking will open the reply
   thread alongside the current messages in the channel, changing the screen from
-  a 2-column layout to a 3-column layout.~ We don't support nested threads;
+  a 2-column layout to a 3-column layout.~~ We don't support nested threads;
   messages either belong directly to a channel or are replies in a thread to a
   message that does, but replies can't have nested replies of their own.
 
@@ -71,8 +71,8 @@ messaging app Slack. We'll call our version [Belay](https://en.wikipedia.org/wik
   your submission, include a SQL file of commands that can be run to create the
   database and its tables. Start the names of your migration files with
   [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) datetimes so that graders
-  can run them in order. ~Make sure when you create your database to set it up to
-  handle unicode characters with `CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`~
+  can run them in order. ~~Make sure when you create your database to set it up to
+  handle unicode characters with `CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`~~
 - You don't need to implement Slack features not listed here, like @-mentioning
   users, avatars, rich text or the like. If you have any questions about what is
   in scope, please ask on the [course Slack](https://app.slack.com/client/T71CT0472/C02TBJ5BHU2).
@@ -85,8 +85,8 @@ submissions from multiple students, please do not require any additional
 programs or packages to be installed. In your submission, include a README with
 instructions for how to configure and run your app:
 - First, graders will run your migrations in lexical order from the command line.
-  ~To make sure your database does not conflict with other students, use your
-  GitLab name as the name of your database.~
+  ~~To make sure your database does not conflict with other students, use your
+  GitLab name as the name of your database.~~
 - Then, graders will start your app with a `flask run` command from the command
   line. Graders will have their FLASK_APP environment variable set to "app," so
   name your Flask file `app.py`.
