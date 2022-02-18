@@ -1,9 +1,11 @@
-# Final Project: Belay (a Slack clone)
+# [DRAFT] Final Project: Belay (a Slack clone)
 
-20 points
+30 points
 
 **DUE: Friday, March 18 by 5:30pm**
-(Due Thursday August 19 for graduating students)
+(Due earlier, with more generous grading, for graduating students)
+
+## THIS IS A DRAFT - SCOPE MAY BE SMALLER BUT WILL NOT BE BIGGER
 
 ### Introduction
 
@@ -26,9 +28,9 @@ messaging app Slack. We'll call our version [Belay](https://en.wikipedia.org/wik
   can delete it and all messages.
 - Like Slack, messages may be threaded as Replies in response to a message in a
   channel. Messages in the channel will display how many replies they have if
-  that number is greater than zero. Like in Slack, clicking will open the reply
+  that number is greater than zero. ~Like in Slack, clicking will open the reply
   thread alongside the current messages in the channel, changing the screen from
-  a 2-column layout to a 3-column layout. We don't support nested threads;
+  a 2-column layout to a 3-column layout.~ We don't support nested threads;
   messages either belong directly to a channel or are replies in a thread to a
   message that does, but replies can't have nested replies of their own.
 
@@ -38,9 +40,6 @@ messaging app Slack. We'll call our version [Belay](https://en.wikipedia.org/wik
 
   Two-column layout:
   ![Slack Screenshot of channel list and messages in one channel](two_column.png)
-
-  Three-column layout:
-  ![Slack Screenshot of channel list, messages, and reply thread](three_column.png)
 
 - Like Slack, if a message contains any URLs that point to [valid image formats](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#Supported_image_formats),
   display the images in the chat at the bottom of the message. Unlike Slack,
@@ -68,30 +67,29 @@ messaging app Slack. We'll call our version [Belay](https://en.wikipedia.org/wik
   handled via JSON API requests. This includes authenticating users, retrieving
   channels and messages, and creating new channels and messages. These requests
   are served by a Flask API.
-- All data about users, channels, and messages is stored in a MySQL database. In
+- All data about users, channels, and messages is stored in a SQLite database. In
   your submission, include a SQL file of commands that can be run to create the
   database and its tables. Start the names of your migration files with
   [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) datetimes so that graders
-  can run them in order. Make sure when you create your database to set it up to
-  handle unicode characters with `CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
+  can run them in order. ~Make sure when you create your database to set it up to
+  handle unicode characters with `CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`~
 - You don't need to implement Slack features not listed here, like @-mentioning
   users, avatars, rich text or the like. If you have any questions about what is
-  in scope, please ask on the [course Slack](https://app.slack.com/client/T71CT0472/C025N3VNLMT).
+  in scope, please ask on the [course Slack](https://app.slack.com/client/T71CT0472/C02TBJ5BHU2).
 
 ### Submissions and Grading
 
-Graders will have Python 3.8+ with Flask installed, and a local install of
-MySQL 5.7+. Because graders must use the same environment to evaluate
+Graders will have Python 3.9+ with Flask installed, and a local install of
+SQLite 3. Because graders must use the same environment to evaluate
 submissions from multiple students, please do not require any additional
 programs or packages to be installed. In your submission, include a README with
 instructions for how to configure and run your app:
-- Include a directory named `final_project` in your GitLab repository
 - First, graders will run your migrations in lexical order from the command line.
-  To make sure your database does not conflict with other students, use your
-  GitLab name as the name of your database.
-- Then, graders will start your app from the `final_project` directory with a
-  `flask run` command from the command line. Graders will have their FLASK_APP
-  environment variable set to "app," so name your Flask file `app.py`.
+  ~To make sure your database does not conflict with other students, use your
+  GitLab name as the name of your database.~
+- Then, graders will start your app with a `flask run` command from the command
+  line. Graders will have their FLASK_APP environment variable set to "app," so
+  name your Flask file `app.py`.
 - Graders will have the packages in `requirements.txt` installed with `pip3 install
   -r requirements.txt`. If you feel strongly that you need a package not listed
   there, ask on the course Slack.
@@ -103,7 +101,7 @@ instructions for how to configure and run your app:
 As always, remember to include in your submission any classmates you
 collaborated with and any materials you consulted.
 
-### Rubric (20 points possible)
+### Rubric (30 points possible - point values to be updated)
 
 Database (5 points)
 - Create database and tables with migrations in version control. Database
