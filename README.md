@@ -3,7 +3,7 @@
 30 points
 
 **DUE: Friday, March 18 by 5:30pm**
-(Due earlier, with more generous grading, for graduating students)
+(Due Thursday March 10, with more generous grading, for graduating students)
 
 ## THIS IS A DRAFT - SCOPE MAY BE SMALLER BUT WILL NOT BE BIGGER
 
