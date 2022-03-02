@@ -1,11 +1,9 @@
-# [DRAFT] Final Project: Belay (a Slack clone)
+# Final Project: Belay (a Slack clone)
 
 30 points
 
 **DUE: Friday, March 18 by 5:30pm**
 (Due Thursday March 10, with more generous grading, for graduating students)
-
-## THIS IS A DRAFT - SCOPE MAY BE SMALLER BUT WILL NOT BE BIGGER
 
 ### Introduction
 
