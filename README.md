@@ -69,8 +69,7 @@ messaging app Slack. We'll call our version [Belay](https://en.wikipedia.org/wik
   your submission, include a SQL file of commands that can be run to create the
   database and its tables. Start the names of your migration files with
   [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) datetimes so that graders
-  can run them in order. User-uploaded images should be stored in an `uploads`
-  directory and only served to logged-in users. (Hint: use cookies).
+  can run them in order.
 - You don't need to implement Slack features not listed here, like @-mentioning
   users, rich text or the like. If you have any questions about what is
   in scope, please ask on the [course Slack](https://app.slack.com/client/T71CT0472/C02TBJ5BHU2).
