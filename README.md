@@ -5,6 +5,8 @@
 **DUE: Friday, March 18 by 5:30pm**
 (Due Thursday March 10, with more generous grading, for graduating students)
 
+Create your own repo at: https://classroom.github.com/a/6Xo735Fm
+
 ### Introduction
 
 As a capstone project for Web Development, we're going to combine the various
