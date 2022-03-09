@@ -157,10 +157,11 @@ Single-Page State (5 points)
 - Loading the unique URL of a channel or thread should open the app to that
   channel or thread.
 - Users can use the Back button to navigate to a previous channel or thread
-- Save the user's username and auth key in localStorage or in a cookie. Include
-  your CNETID as part of your storage keys so your storage won't conflict with
-  those of other students on the graders' machines.
-
+- Save the user's auth key in localStorage or in a cookie. Include your CNETID
+  as part of your storage keys so your storage won't conflict with
+  those of other students on the graders' machines. e.g.
+  `window.localStorage.setItem('trevoraustin_belay_auth_key', 'abcdefg')`
+  
 Asynchronous Request Handling (2 points)
 - Continuously poll for new messages, only in the channel the user is in. You
   may use setInterval.
