@@ -95,8 +95,13 @@ instructions for how to configure and run your app:
 - Make sure that your app starts successfully under these circumstances. We'll
   do our best to make your app run even if it doesn't, but with a points penalty.
 
-As always, remember to include in your submission any classmates you
-collaborated with and any materials you consulted.
+You can use any techniques or tools to complete your project, whether or not we
+studied them in class. In particular, note that there is no requirement that you
+use React. You could do the whole project with vanilla Javascript, you could use
+React, or you could use some other framework we didn't study in class, like
+[Vue.js](https://vuejs.org/) or [Svelte](https://svelte.dev/). As always,
+remember to include in your submission any classmates you collaborated with and
+any materials you consulted.
 
 ### Rubric (30 points possible - point values to be updated)
 
