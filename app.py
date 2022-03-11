@@ -8,7 +8,7 @@ from flask import g
 from flask_bcrypt import Bcrypt
 
 
-DATABASE = './belay.db'
+DATABASE = 'belay.db'
 
 app = Flask(__name__, static_folder='react-app/build')
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
