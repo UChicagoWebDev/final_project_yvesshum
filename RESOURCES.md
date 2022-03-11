@@ -1,3 +1,3 @@
 -   https://stackoverflow.com/questions/44209978/serving-a-front-end-created-with-create-react-app-with-flask
 -   https://create-react-app.dev/docs/title-and-meta-tags/
--
+-   https://flask-bcrypt.readthedocs.io/en/latest/
