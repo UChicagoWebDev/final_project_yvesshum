@@ -103,14 +103,16 @@ def login():
         user_name], one=True)
 
     if user == None:
-        return "Username or Password does not exist", 401
+        return "Username or Password does not exist", 400
 
-    is_correct_pw = bcrypt.check_password_hash(user["pw_hash"], password)
+    print("User", user)
+
+    is_correct_pw = bcrypt.check_password_hash(user["password_hash"], password)
 
     if (is_correct_pw):
         return user["session_token"], 200
     else:
-        return "Incorrect Username or Password", 401
+        return "Incorrect Username or Password", 400
 
 
 @app.route('/api/create-user', methods=["POST"])
@@ -128,18 +130,44 @@ def create_user():
         return "User name is already token", 400
 
 
-@app.route('/api/user/<int:user_id>/channels', methods=["GET"])
-def get_user_channels(user_id):
+@app.route('/api/token-authenticate', methods=["POST"])
+def authenticate_with_token():
+    body = request.json
+    token = body["token"]
+    user = query_db("SELECT * FROM users WHERE session_token = ?", [token])
+    if user == None:
+        return "Unauthorized", 401
+    else:
+        return "Ok", 200
+
+
+@app.route('/api/user/<int:user_id>', methods=["GET"])
+def get_user(user_id):
     if not is_authorized(request.headers.get("yvesshum-belay-auth-key")):
         return "Unauthorized", 401
 
-    return {"channels": query_db("SELECT channel_id, channel_name FROM channels INNER JOIN channel_members ON channels.id = channel_members.channel_id WHERE channel_members.user_id = ?", [user_id])}
+    user = query_db(
+        "SELECT id, user_name FROM users WHERE id = ?", [user_id], one=True)
+
+    return user, 200
+
+
+@app.route('/api/user/channels', methods=["GET"])
+def get_user_channels():
+    if not is_authorized(request.headers.get("yvesshum-belay-auth-key")):
+        return "Unauthorized", 401
+
+    user = get_user_by_auth_key(request.headers.get("yvesshum-belay-auth-key"))
+
+    return {"channels": query_db("SELECT channel_id, channel_name FROM channels INNER JOIN channel_members ON channels.id = channel_members.channel_id WHERE channel_members.user_id = ?", [user["id"]])}
 
 
 @app.route('/api/last_seen_messages', methods=["GET"])
 def get_user_last_seen_messages():
     if not is_authorized(request.headers.get("yvesshum-belay-auth-key")):
         return "Unauthorized", 401
+
+    # TODO
 
     user = get_user_by_auth_key(request.headers.get("yvesshum-belay-auth-key"))
 

@@ -2,6 +2,11 @@ import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
 import React from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import Home from "./Coponents/Home";
+import Login from "./Coponents/Login";
+import NavBar from "./Coponents/NavBar";
+
 function App() {
     React.useEffect(async () => {
         let resp = await axios.get("/api/test");
@@ -13,7 +18,11 @@ function App() {
 
     return (
         <div className="App">
-            <h1>Belay</h1>
+            <NavBar />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="login" element={<Login />} />
+            </Routes>
         </div>
     );
 }
