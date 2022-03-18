@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Form, FormText, Spinner } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getChannelDetails, getChannelMessages, sendMessage, updateLastSeenMessage } from "../../Services/api";
 import ChatHeader from "./Header";
 import Message from "./Message";
-
-export default function ChatWindow({ channel_id }) {
+import "./ChatWindow.css";
+export default function ChatWindow({ channel_id, channels, unseenMessages }) {
+    const replyingToMessage = useParams().message_id;
     const savedCallback = useRef();
     const bottomRef = useRef(null);
     const lastReceivedMessageID = useRef(null);
+    const [hide, setHide] = useState(false);
     const [messages, setMessages] = useState(null);
     const [channel, setChannel] = useState(null);
     const [textBox, setTextBox] = useState("");
@@ -35,8 +38,9 @@ export default function ChatWindow({ channel_id }) {
     }, []);
 
     useEffect(() => {
-        if (messages) {
+        if (messages && messages.length) {
             let lastMessageId = messages[messages.length - 1].message_id;
+
             if (lastReceivedMessageID.current != lastMessageId) {
                 lastReceivedMessageID.current = lastMessageId;
                 bottomRef.current?.scrollIntoView({ behaviour: "auto" });
@@ -53,7 +57,7 @@ export default function ChatWindow({ channel_id }) {
         try {
             let message = textBox;
             setTextBox("");
-            await sendMessage(channel_id, message, null);
+            await sendMessage(channel_id, message, replyingToMessage || null);
         } catch (error) {
             console.log(error);
             toast.error("Sorry :( unable to send message");
@@ -75,39 +79,103 @@ export default function ChatWindow({ channel_id }) {
         );
     }
 
-    return (
-        <div
-            style={{
-                height: "100vh",
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                overflow: "hidden",
-            }}
-        >
-            <ChatHeader channel={channel} />
-            <div style={{ overflowY: "scroll", marginBottom: "5rem" }}>
-                {messages.map(({ message, message_id, user_name, replies_to, timestamp }) => (
-                    <div key={message_id}>
-                        <Message user_name={user_name} message={message} timestamp={timestamp} threadMessages={[]} />
+    if (replyingToMessage) {
+        let replyMessage = messages.find((m) => m.message_id == replyingToMessage);
+        return (
+            <div className="chatWindowContainer">
+                <ChatHeader
+                    showBackButton
+                    channel_name={`Replying to ${replyMessage.user_name}`}
+                    channels={channels}
+                    unseenMessages={unseenMessages}
+                />
+                <div style={{ background: "var(--bs-gray-300)", textAlign: "left", padding: "1rem" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <h4>Replying to message:</h4>
+                        <Button style={{ backgroundColor: "var(--blue)", border: 0 }} onClick={() => setHide(!hide)}>
+                            {hide ? "Show" : "Hide"}
+                        </Button>
                     </div>
-                ))}
+                    {!hide && (
+                        <Message
+                            message_id={replyMessage.message_id}
+                            user_name={replyMessage.user_name}
+                            message={replyMessage.message}
+                            timestamp={replyMessage.timestamp}
+                            threadMessages={replyMessage.threadMessages}
+                            disableReplyButton
+                        />
+                    )}
+                </div>
+                <div className="messagesContainer">
+                    {replyMessage.threadMessages.map(({ message, message_id, user_name, replies_to, timestamp }) => (
+                        <div key={message_id}>
+                            <Message
+                                message_id={message_id}
+                                user_name={user_name}
+                                message={message}
+                                timestamp={timestamp}
+                                threadMessages={[]}
+                                disableReplyButton
+                            />
+                        </div>
+                    ))}
+                    <div ref={bottomRef}></div>
+                </div>
+                <div className="textBoxContainer">
+                    <div className="textBox">
+                        <Form.Control
+                            value={textBox}
+                            type="text"
+                            placeholder={`Message #${channel.channel_name}`}
+                            onChange={handleTextBoxChange}
+                            onKeyDown={handleTextBoxKeyDown}
+                        />
+                        <Button
+                            style={{
+                                backgroundColor: "var(--green)",
+                                border: 0,
+                            }}
+                            height="1rem"
+                            disabled={textBox.length == 0}
+                            onClick={handleSendClick}
+                        >
+                            Send
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="chatWindowContainer">
+            <ChatHeader
+                channel_name={channel.channel_name}
+                num_members={channel.num_members}
+                channels={channels}
+                unseenMessages={unseenMessages}
+            />
+            <div className="messagesContainer">
+                {messages
+                    .filter((m) => m.replies_to == null)
+                    .map(({ threadMessages, message, message_id, user_name, replies_to, timestamp }) => (
+                        <div key={message_id}>
+                            <Message
+                                message_id={message_id}
+                                user_name={user_name}
+                                message={message}
+                                timestamp={timestamp}
+                                threadMessages={threadMessages}
+                            />
+                        </div>
+                    ))}
                 <div ref={bottomRef}></div>
             </div>
-            <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
-                <div
-                    style={{
-                        padding: "1rem",
-                        // margin: "1rem",
-                        borderTop: "1px solid var(--bs-gray-400)",
-                        display: "flex",
-                        gap: "1rem",
-                        flexDirection: "row",
-                    }}
-                >
+            <div className="textBoxContainer">
+                <div className="textBox">
                     <Form.Control
                         value={textBox}
-                        style={{ display: "inline" }}
                         type="text"
                         placeholder={`Message #${channel.channel_name}`}
                         onChange={handleTextBoxChange}

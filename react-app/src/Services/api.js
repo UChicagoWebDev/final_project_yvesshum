@@ -9,8 +9,7 @@ axios.interceptors.response.use(
     (resp) => resp,
     (error) => {
         if (error.response.status === 401) {
-            window.alert("You are not authenticated");
-            history.push("login");
+            history.push("/login");
         }
         throw error;
     }
@@ -28,8 +27,8 @@ export async function login(user_name, password) {
 
 export async function createAccount(user_name, password) {
     try {
-        let session_token = await axios.post("/api/create-user", { user_name, password });
-        localStorage.setItem("yvesshum-belay-auth-token", session_token);
+        let resp = await axios.post("/api/create-user", { user_name, password });
+        localStorage.setItem("yvesshum-belay-auth-token", resp.data);
         history.push("/");
     } catch (error) {
         window.alert(`Error ${error.response.data}`);
@@ -38,6 +37,11 @@ export async function createAccount(user_name, password) {
 
 export async function getUserChannels() {
     let resp = await axios.get("/api/user/channels");
+    return resp.data;
+}
+
+export async function getUserNotInChannels() {
+    let resp = await axios.get("/api/user/not-in-channels");
     return resp.data;
 }
 
@@ -62,6 +66,11 @@ export async function createChannel(channel_name) {
     return resp.data;
 }
 
+export async function joinChannel(channel_id) {
+    let resp = await axios.post(`/api/channels/${channel_id}/participants`);
+    return resp.data;
+}
+
 export async function getChannelDetails(channel_id) {
     let resp = await axios.get(`/api/channels/${channel_id}`);
     return resp.data;
@@ -69,7 +78,19 @@ export async function getChannelDetails(channel_id) {
 
 export async function getChannelMessages(channel_id) {
     let resp = await axios.get(`/api/channels/${channel_id}/messages`);
-    return resp.data;
+    let ret = [];
+    let messageIdIndexMapping = new Map();
+    resp.data.messages.forEach((message) => {
+        if (message.replies_to == null) {
+            messageIdIndexMapping.set(message.message_id, ret.length);
+            ret.push({ ...message, threadMessages: [] });
+        } else {
+            let index = messageIdIndexMapping.get(message.replies_to);
+            ret[index].threadMessages.push(message);
+            ret.push({ ...message, threadMessages: [] });
+        }
+    });
+    return { messages: ret };
 }
 
 export async function sendMessage(channel_id, message, replies_to) {

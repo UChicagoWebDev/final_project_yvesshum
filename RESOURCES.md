@@ -4,3 +4,4 @@
 -   https://react-bootstrap.github.io/
 -   https://usehooks-ts.com/react-hook/use-interval
 -   https://codepen.io/AllThingsSmitty/pen/dWmmQp
+-   https://stackoverflow.com/questions/432493/how-do-you-access-the-matched-groups-in-a-javascript-regular-expression

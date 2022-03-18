@@ -4,6 +4,7 @@
 }
 
 .circle {
+    min-width: 3rem;
     background-color: #ccc;
     border-radius: 10%;
     height: var(--avatar-size);

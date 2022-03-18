@@ -161,6 +161,15 @@ def get_user_channels():
 
     return {"channels": query_db("SELECT channel_id, channel_name FROM channels INNER JOIN channel_members ON channels.id = channel_members.channel_id WHERE channel_members.user_id = ?", [user["id"]])}
 
+@app.route('/api/user/not-in-channels', methods=["GET"])
+def get_user_not_in_channels():
+    if not is_authorized(request.headers.get("yvesshum-belay-auth-key")):
+        return "Unauthorized", 401
+
+    user = get_user_by_auth_key(request.headers.get("yvesshum-belay-auth-key"))
+
+    return {"channels": query_db("SELECT id as channel_id, channel_name FROM channels where channels.id NOT IN (SELECT channel_id from channel_members WHERE user_id = ?);", [user["id"]])}
+
 
 @app.route('/api/last_seen_messages', methods=["GET"])
 def get_user_last_seen_messages():

@@ -10,6 +10,14 @@ p {
 }
 
 .channelItem:hover {
-    background-color: rgb(62, 10, 78);
+    background-color: rgb(42, 7, 53);
     cursor: pointer;
+}
+
+.reply:hover {
+    cursor: pointer;
+}
+
+.selectedChannelItem {
+    background-color: rgb(35, 88, 149) !important;
 }

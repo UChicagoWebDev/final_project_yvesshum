@@ -15,6 +15,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/channels/:channel_id" element={<Home />} />
+                <Route path="/channels/:channel_id/message/:message_id" element={<Home />} />
 
                 <Route path="login" element={<Login />} />
             </Routes>

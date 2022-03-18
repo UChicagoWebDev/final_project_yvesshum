@@ -1,0 +1,26 @@
+.chatWindowContainer {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.messagesContainer {
+    overflow-y: scroll;
+    margin-bottom: 5rem;
+}
+
+.textBoxContainer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.textBox {
+    padding: 1rem;
+    border-top: 1px solid var(--bs-gray-400);
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+}

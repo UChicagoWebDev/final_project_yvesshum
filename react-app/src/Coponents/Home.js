@@ -35,7 +35,9 @@ export default function Home() {
                     <Sidebar channels={channels} unseenMessages={unseenMessages} />
                 </Col>
                 <Col style={{ paddingLeft: 0, paddingRight: 0 }}>
-                    {channel_id && <ChatWindow channel_id={channel_id} />}
+                    {channel_id && (
+                        <ChatWindow channel_id={channel_id} channels={channels} unseenMessages={unseenMessages} />
+                    )}
                 </Col>
             </Row>
         </Container>
