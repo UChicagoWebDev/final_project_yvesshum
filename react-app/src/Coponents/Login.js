@@ -17,7 +17,9 @@ export default function Login() {
     };
 
     return (
-        <Container size="sm">
+        <Container size="sm" style={{ padding: "2rem" }}>
+            <h1>Belay</h1>
+            <br />
             <Row className="justify-content-md-center">
                 <Col xs md="8" lg="4">
                     <Form>

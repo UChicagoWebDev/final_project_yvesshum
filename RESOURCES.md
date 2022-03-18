@@ -1,3 +1,6 @@
 -   https://stackoverflow.com/questions/44209978/serving-a-front-end-created-with-create-react-app-with-flask
 -   https://create-react-app.dev/docs/title-and-meta-tags/
 -   https://flask-bcrypt.readthedocs.io/en/latest/
+-   https://react-bootstrap.github.io/
+-   https://usehooks-ts.com/react-hook/use-interval
+-   https://codepen.io/AllThingsSmitty/pen/dWmmQp

@@ -1,0 +1,15 @@
+p {
+    color: white;
+    margin-bottom: 0 !important;
+}
+
+.channelItem {
+    text-align: left;
+    padding: 0.25rem 2rem 0.25rem 2rem;
+    text-overflow: ellipsis;
+}
+
+.channelItem:hover {
+    background-color: rgb(62, 10, 78);
+    cursor: pointer;
+}

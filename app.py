@@ -167,11 +167,9 @@ def get_user_last_seen_messages():
     if not is_authorized(request.headers.get("yvesshum-belay-auth-key")):
         return "Unauthorized", 401
 
-    # TODO
-
     user = get_user_by_auth_key(request.headers.get("yvesshum-belay-auth-key"))
 
-    return {"last_seen_messages": query_db("SELECT ")}
+    return {"last_seen_messages": query_db("SELECT last_seen_message_id, channel_id FROM last_seen_messages WHERE user_id = ?", [user["id"]])}
 
 
 @app.route('/api/channels/<int:channel_id>/last_seen_message', methods=["POST"])
@@ -206,7 +204,7 @@ def get_channel_by_id(channel_id):
     if not is_authorized(request.headers.get("yvesshum-belay-auth-key")):
         return "Unauthorized", 401
 
-    return query_db("SELECT * FROM channels WHERE id = ?", [channel_id], one=True)
+    return {"channel": query_db("SELECT * FROM channels WHERE id = ?", [channel_id], one=True), "num_members": query_db("SELECT COUNT(user_id) AS num_members FROM channel_members WHERE channel_id = ?", [channel_id], one=True)["num_members"]}
 
 
 @app.route('/api/channels', methods=["POST"])
@@ -261,7 +259,7 @@ def get_channel_messages(channel_id):
         return "Unauthorized", 401
 
     messages = query_db(
-        "SELECT * FROM messages WHERE channel_id = ?", [channel_id])
+        "SELECT channel_id, messages.id as message_id, message, replies_to, timestamp, user_id, user_name FROM messages INNER JOIN users ON users.id = messages.user_id WHERE channel_id = ? ", [channel_id])
     return {"messages": messages}
 
 
